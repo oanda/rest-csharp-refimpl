@@ -63,8 +63,7 @@ namespace TradingApp2
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
             var group = ((DataGroup)e.ClickedItem);
-			// TODO: index out of range exception
-            if (group.Items[0] as RequestViewModel != null)
+			if (group.Items != null && group.Items.Count > 0 && group.Items[0] as RequestViewModel != null)
             {
 	            this.Frame.Navigate(typeof(InputSplitPage), group.UniqueId);
             }

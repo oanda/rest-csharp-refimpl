@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Xml;
+using TradingApp2.Common;
 using TradingApp2.DataModel;
 using TradingApp2.DataModel.DataModels;
 using TradingApp2.TradeLibrary;
@@ -244,12 +245,17 @@ namespace TradingApp2.Data
         {
             var dataList = Factory.GetDataItems(list, this);
             // Note: it would be nice if this was smarter (updating existing entries rather than always wiping it out)
-            _items.Clear();
-            foreach (var item in dataList)
-            {
-                var data = item;
-                _items.Add(data);
-            }
+	        CentralDispatcher.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+		        {
+			        _items.Clear();
+
+			        foreach (var item in dataList)
+			        {
+				        var data = item;
+				        _items.Add(data);
+			        }
+		        }
+		    );
         }
     }
 
@@ -272,16 +278,20 @@ namespace TradingApp2.Data
 				_firstUpdate = false;
 			}
 			var dataList = Factory.GetDataItems(list, this);
-			for (int t = 0; t < dataList.Count && t < _maxEntries; t++ )
-			{
-				// TODO marshalling error
-				Items.Insert(t, dataList[t]);
-				if (Items.Count > _maxEntries)
+
+			// prevent marshalling errors by using the cebtral dispatcher
+			CentralDispatcher.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
 				{
-					Items.RemoveAt(_maxEntries);
+					for (int t = 0; t < dataList.Count && t < _maxEntries; t++)
+					{
+						Items.Insert(t, dataList[t]);
+						if (Items.Count > _maxEntries)
+						{
+							Items.RemoveAt(_maxEntries);
+						}
+					}
 				}
-			}
-			
+			);
 		}
 	}
 
@@ -330,12 +340,6 @@ namespace TradingApp2.Data
 				_currentSession.DataReceived += CurrentSessionOnTickReceived;
 				_currentSession.StartSession();
             }
-			//var prices = await Rest.PollRatesSession(_currentSession);
-			//foreach (var price in prices)
-			//{
-                
-			//}
-			//_transTimer.Start();
         }
 
 	    private void CurrentSessionOnTickReceived(RateStreamResponse update)
@@ -367,11 +371,6 @@ namespace TradingApp2.Data
     /// </summary>
     public sealed class AccountDataSource
     {
-#if sandbox
-		private static int defaultAccountId = 9304262;
-#else
-		//private static int defaultAccountId = Credentials.GetDefaultCredentials().defaultAccountId;
-#endif
 	    public static AccountDataSource DefaultDataSource = new AccountDataSource();
 
         private ObservableCollection<DataGroup> _allGroups = new ObservableCollection<DataGroup>();
@@ -488,7 +487,6 @@ namespace TradingApp2.Data
 
 			InitSampleContent();
 
-			// Don't bother enabling updates if we have no account server set
 			EnableUpdates();
         }
 

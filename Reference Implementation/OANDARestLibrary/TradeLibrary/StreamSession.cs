@@ -15,7 +15,6 @@ namespace OANDARestLibrary.TradeLibrary
 		protected readonly int _accountId;
 		private WebResponse _response;
 		private bool _shutdown;
-		//private CoreDispatcher _dispatcher;
 
 		public delegate void DataHandler(T data);
 
@@ -38,7 +37,7 @@ namespace OANDARestLibrary.TradeLibrary
 		{
 			_shutdown = false;
 			_response = await GetSession();
-			//_dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
+			
 
 			Task.Run(() =>
 				{
@@ -57,7 +56,6 @@ namespace OANDARestLibrary.TradeLibrary
 						// Don't send heartbeats
 						if (!data.IsHeartbeat())
 						{
-							//_dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => OnDataReceived(data));
 							OnDataReceived(data);
 						}
 					}
