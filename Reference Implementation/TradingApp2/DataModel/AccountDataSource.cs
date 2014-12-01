@@ -552,8 +552,8 @@ namespace TradingApp2.Data
 			}));
 			group2.Items.Add(new TradePatchViewModel("Patch Trade", group2, new Dictionary<string, string>
 			{
-				{"sl", "0.5"},
-				{"tp", "6.0"}
+				{"stopLoss", "0.5"},
+				{"takeProfit", "6.0"}
 			}));
 			group2.Items.Add(new TradeDeleteViewModel("Delete Trade", group2));
 			group2.Items.Add(new PositionDeleteViewModel("Delete Position", group2, "EUR_USD"));

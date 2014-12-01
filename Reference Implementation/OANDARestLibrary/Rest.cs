@@ -193,10 +193,8 @@ namespace OANDARestLibrary
 				{
 					var response = await client.GetAsync(location);
 					if (response.IsSuccessStatusCode)
-					//using (WebResponse response = await request.GetResponseAsync())
 					{
 						var serializer = new DataContractJsonSerializer(typeof (List<Transaction>));
-						//var stream = new GZipStream(response.GetResponseStream(), CompressionMode.Decompress);
 						var archive = new ZipArchive(await response.Content.ReadAsStreamAsync());
 						return (List<Transaction>) serializer.ReadObject(archive.Entries[0].Open());
 					}
@@ -454,22 +452,28 @@ namespace OANDARestLibrary
 				using (WebResponse response = await request.GetResponseAsync())
 				{
 					var serializer = new DataContractJsonSerializer(typeof(T));
-					var stream = response.GetResponseStream();
-					if (response.Headers["Content-Encoding"] == "gzip")
-					{	// if we received a gzipped response, handle that
-						stream = new GZipStream(stream, CompressionMode.Decompress);
-					}
+					var stream = GetResponseStream(response);
 					return (T)serializer.ReadObject(stream);
 				}
 			}
 			catch (WebException ex)
 			{
-				var response = (HttpWebResponse) ex.Response;
-				var stream = new StreamReader(response.GetResponseStream());
-				var result = stream.ReadToEnd();
+				var stream = GetResponseStream(ex.Response);
+				var reader = new StreamReader(stream);
+				var result = reader.ReadToEnd();
 				throw new Exception(result);
 			}
         }
+
+		private static Stream GetResponseStream(WebResponse response)
+		{
+			var stream = response.GetResponseStream();
+			if (response.Headers["Content-Encoding"] == "gzip")
+			{	// if we received a gzipped response, handle that
+				stream = new GZipStream(stream, CompressionMode.Decompress);
+			}
+			return stream;
+		}
         
 		/// <summary>
 		/// Posts an order on the given account with the given parameters
@@ -749,20 +753,16 @@ namespace OANDARestLibrary
 			{
 				using (WebResponse response = await request.GetResponseAsync())
 				{
-					var stream = response.GetResponseStream();
-					if (response.Headers["Content-Encoding"] == "gzip")
-					{	// if we received a gzipped response, handle that
-						stream = new GZipStream(stream, CompressionMode.Decompress);
-					}
+					var stream = GetResponseStream(response);
 					var reader = new StreamReader(stream);
 					return await reader.ReadToEndAsync();
 				}
 			}
 			catch (WebException ex)
 			{
-				var response = (HttpWebResponse)ex.Response;
-				var stream = new StreamReader(response.GetResponseStream());
-				var result = stream.ReadToEnd();
+				var stream = GetResponseStream(ex.Response);
+				var reader = new StreamReader(stream);
+				var result = reader.ReadToEnd();
 				throw new Exception(result);
 			}
 		}

@@ -172,9 +172,12 @@ namespace ConsoleTest.Testing
 			var trans = await Rest.GetTransactionDetailsAsync(_accountId, result[0].id);
 			_results.Verify(trans.id == result[0].id, "Transaction details retrieved");
 
-			// Get Full account history
-			var fullHistory = await Rest.GetFullTransactionHistoryAsync(_accountId);
-			_results.Verify(fullHistory.Count > 0, "Full transaction history retrieved");
+			if (!Credentials.GetDefaultCredentials().IsSandbox)
+			{	// Not available on sandbox
+				// Get Full account history
+				var fullHistory = await Rest.GetFullTransactionHistoryAsync(_accountId);
+				_results.Verify(fullHistory.Count > 0, "Full transaction history retrieved");
+			}
 		}
 
 		private async Task RunPositionsTest()
