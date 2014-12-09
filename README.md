@@ -55,4 +55,6 @@ Leverage trading is high risk and not suitable for all. You could lose all of yo
 
 OANDA makes no warranty or representation, either express or implied, with respect to the Software or Software features, including their quality, performance, merchantability, suitability, fitness for a particular purpose or that they are error free.
 
+The disclaimer applies to any code provided in this Github repo.
+
  
