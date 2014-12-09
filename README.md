@@ -48,6 +48,11 @@ This solution contains three projects:
  * DataTypes\Communications - extra classes used for communicating to and from the API, mostly just for the internal use of the library
  * 
  
-## Disclaimer and Warning
+## Warning
 Leverage trading is high risk and not suitable for all. You could lose all of your deposited funds. Articles are for general information purposes only and are not investment advice or a solution to buy or sell any investment product. Opinions are those of the authors and not necessarily those of OANDA, its officers, or its directors. Examples shown are for illustrative purposes only and may not reflect current prices or offers from OANDA
+
+## Disclaimer, Code and Software
+
+OANDA makes no warranty or representation, either express or implied, with respect to the Software or Software features, including their quality, performance, merchantability, suitability, fitness for a particular purpose or that they are error free.
+
  
