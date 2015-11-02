@@ -9,7 +9,7 @@ namespace OANDARestLibrary.TradeLibrary.DataTypes
 {
     public class Transaction : Response
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public int accountId { get; set; }
 		public string time { get; set; }
 		public string type { get; set; }
@@ -25,8 +25,8 @@ namespace OANDARestLibrary.TradeLibrary.DataTypes
 		public double pl { get; set; }
 		public double interest { get; set; }
 		public double accountBalance { get; set; }
-		public int tradeId { get; set; }
-	    public int orderId { get; set; }
+		public long tradeId { get; set; }
+	    public long orderId { get; set; }
 		public TradeData tradeOpened { get; set; }
 		public TradeData tradeReduced { get; set; }
 		public string reason { get; set; }
