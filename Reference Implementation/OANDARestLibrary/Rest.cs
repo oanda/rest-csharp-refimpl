@@ -89,20 +89,19 @@ namespace OANDARestLibrary
             return orders;
         }
 
-		/// <summary>
-		/// Retrieves the details for a given order ID
-		/// </summary>
-		/// <param name="account">the account that the order belongs to</param>
-		/// <param name="orderId">the id of the order to retrieve</param>
-		/// <returns>Order object containing the order details</returns>
-		public static async Task<Order> GetOrderDetailsAsync(int accountId, int orderId)
-		{
-			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/orders/" + orderId;
+        /// <summary>
+        /// Retrieves the details for a given order ID
+        /// </summary>
+        /// <param name="account">the account that the order belongs to</param>
+        /// <param name="orderId">the id of the order to retrieve</param>
+        /// <returns>Order object containing the order details</returns>
+        public static async Task<Order> GetOrderDetailsAsync (int accountId, long orderId) {
+            string requestString = Server(EServer.Account) + "accounts/" + accountId + "/orders/" + orderId;
 
-			var order = await MakeRequestAsync<Order>(requestString);
+            var order = await MakeRequestAsync<Order>(requestString);
 
-			return order;
-		}
+            return order;
+        }
 
 		/// <summary>
 		/// Retrieves the details for a given trade
@@ -544,18 +543,17 @@ namespace OANDARestLibrary
 		    return requestBody;
 	    }
 
-		/// <summary>
-		/// Modify the specified order, updating it with the parameters provided
-		/// </summary>
-		/// <param name="accountId">the account the owns the order</param>
-		/// <param name="orderId">the order to update</param>
-		/// <param name="requestParams">the parameters to update (name, value pairs)</param>
-		/// <returns>Order object containing the new details of the order (post update)</returns>
-	    public static async Task<Order> PatchOrderAsync(int accountId, int orderId, Dictionary<string, string> requestParams)
-		{
-			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/orders/" + orderId;
-			return await MakeRequestWithBody<Order>("PATCH", requestParams, requestString);
-		}
+        /// <summary>
+        /// Modify the specified order, updating it with the parameters provided
+        /// </summary>
+        /// <param name="accountId">the account the owns the order</param>
+        /// <param name="orderId">the order to update</param>
+        /// <param name="requestParams">the parameters to update (name, value pairs)</param>
+        /// <returns>Order object containing the new details of the order (post update)</returns>
+        public static async Task<Order> PatchOrderAsync (int accountId, long orderId, Dictionary<string, string> requestParams) {
+            string requestString = Server(EServer.Account) + "accounts/" + accountId + "/orders/" + orderId;
+            return await MakeRequestWithBody<Order>("PATCH", requestParams, requestString);
+        }
 
 		/// <summary>
 		/// Modify the specified trade, updating it with the parameters provided
@@ -570,17 +568,16 @@ namespace OANDARestLibrary
 			return await MakeRequestWithBody<TradeData>("PATCH", requestParams, requestString);
 		}
 
-		/// <summary>
-		/// Delete the order specified
-		/// </summary>
-		/// <param name="accountId">the account that owns the order</param>
-		/// <param name="orderId">the ID of the order to delete</param>
-		/// <returns>Order object containing the details of the deleted order</returns>
-		public static async Task<Order> DeleteOrderAsync(int accountId, int orderId)
-		{
-			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/orders/" + orderId;
-			return await MakeRequestAsync<Order>(requestString, "DELETE");
-		}
+        /// <summary>
+        /// Delete the order specified
+        /// </summary>
+        /// <param name="accountId">the account that owns the order</param>
+        /// <param name="orderId">the ID of the order to delete</param>
+        /// <returns>Order object containing the details of the deleted order</returns>
+        public static async Task<Order> DeleteOrderAsync (int accountId, long orderId) {
+            string requestString = Server(EServer.Account) + "accounts/" + accountId + "/orders/" + orderId;
+            return await MakeRequestAsync<Order>(requestString, "DELETE");
+        }
 
 		/// <summary>
 		/// Close the trade specified
