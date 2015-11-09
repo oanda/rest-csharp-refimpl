@@ -13,7 +13,7 @@ namespace TradingApp2.DataModel.DataModels
     {
         DispatcherTimer _transTimer;
 
-        int _currentTrans;
+        long _currentTrans;
 
         public AccountData(int id)
         {

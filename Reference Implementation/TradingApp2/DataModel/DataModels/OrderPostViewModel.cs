@@ -15,8 +15,8 @@ namespace TradingApp2.DataModel.DataModels
 	/// </summary>
 	class RequestHelpers
 	{
-		public static int lastTradeId = 0;
-		public static int lastOrderId = 0;
+		public static long lastTradeId = 0;
+		public static long lastOrderId = 0;
 	}
 
 	class OrderPostViewModel : RequestViewModel

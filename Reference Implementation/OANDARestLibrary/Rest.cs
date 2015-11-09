@@ -109,7 +109,7 @@ namespace OANDARestLibrary
 		/// <param name="accountId">the account to which the trade belongs</param>
 		/// <param name="tradeId">the ID of the trade to get the details</param>
 		/// <returns>TradeData object containing the details of the trade</returns>
-		public static async Task<TradeData> GetTradeDetailsAsync(int accountId, int tradeId)
+		public static async Task<TradeData> GetTradeDetailsAsync(int accountId, long tradeId)
 		{
 			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/trades/" + tradeId;
 
@@ -141,7 +141,7 @@ namespace OANDARestLibrary
 		/// <param name="accountId">the id of the account to which the transaction belongs</param>
 		/// <param name="transId">the id of the transaction to retrieve</param>
 		/// <returns>Transaction object with the details of the transaction</returns>
-		public static async Task<Transaction> GetTransactionDetailsAsync(int accountId, int transId)
+		public static async Task<Transaction> GetTransactionDetailsAsync(int accountId, long transId)
 		{
 			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/transactions/" + transId;
 
@@ -562,7 +562,7 @@ namespace OANDARestLibrary
 		/// <param name="tradeId">the id of the trade to update</param>
 		/// <param name="requestParams">the parameters to update (name, value pairs)</param>
 		/// <returns>TradeData for the trade post update</returns>
-		public static async Task<TradeData> PatchTradeAsync(int accountId, int tradeId, Dictionary<string, string> requestParams)
+		public static async Task<TradeData> PatchTradeAsync(int accountId, long tradeId, Dictionary<string, string> requestParams)
 		{
 			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/trades/" + tradeId;
 			return await MakeRequestWithBody<TradeData>("PATCH", requestParams, requestString);
@@ -585,7 +585,7 @@ namespace OANDARestLibrary
 		/// <param name="accountId">the account that owns the trade</param>
 		/// <param name="tradeId">the ID of the trade to close</param>
 		/// <returns>DeleteTradeResponse containing the details of the close</returns>
-		public static async Task<DeleteTradeResponse> DeleteTradeAsync(int accountId, int tradeId)
+		public static async Task<DeleteTradeResponse> DeleteTradeAsync(int accountId, long tradeId)
 		{
 			string requestString = Server(EServer.Account) + "accounts/" + accountId + "/trades/" + tradeId;
 			return await MakeRequestAsync<DeleteTradeResponse>(requestString, "DELETE");

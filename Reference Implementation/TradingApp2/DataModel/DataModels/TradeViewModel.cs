@@ -52,7 +52,7 @@ namespace TradeLibrary.DataModels
             }
         }
 
-        public int Id { get { return _model.id; } }
+        public long Id { get { return _model.id; } }
         public string Side { get { return _model.side; } }
         public string Instrument { get { return _model.instrument; } }
         public int Units { get { return _model.units; } }

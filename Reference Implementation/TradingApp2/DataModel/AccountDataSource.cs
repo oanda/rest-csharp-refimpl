@@ -403,7 +403,7 @@ namespace TradingApp2.Data
         }
 
         DispatcherTimer _transTimer = null;
-        int _currentTrans = 0;
+        long _currentTrans = 0;
 	    private EventsSession _currentSession;
 
 	    public void EnableUpdates()

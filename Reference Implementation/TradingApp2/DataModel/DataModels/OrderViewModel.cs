@@ -76,7 +76,7 @@ namespace TradingApp2.TradeLibrary.DataModels
             }
         }
 
-        public int Id { get { return _model.id; } }
+        public long Id { get { return _model.id; } }
         public string Type { get { return _model.type; } }
         public string Side { get { return _model.side; } }
         public string Instrument { get { return _model.instrument; } }
