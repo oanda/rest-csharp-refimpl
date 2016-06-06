@@ -66,6 +66,7 @@ namespace OANDARestLibrary.TradeLibrary
 
 		public void StopSession()
 		{
+		        _response.Dispose();
 			_shutdown = true;
 		}
 	}
